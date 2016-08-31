@@ -139,7 +139,8 @@ void setup() {
 
 
   
-}
+} //end setup loop
+
 
 // the loop() method runs over and over again,
 // as long as the board has power
@@ -149,8 +150,20 @@ void loop() {
     ledTimer = 0;
     ledState = !ledState;
     digitalWrite(ledPin,ledState);
+
+    //print the linear acceleration
     Serial.print(BNOgetAccelX());
-    Serial.print("\t");
+    Serial.print(" ");
+    Serial.print(BNOgetAccelY());
+    Serial.print(" ");
+    Serial.print(BNOgetAccelZ());
+    Serial.print(" ");
+
+    //print the angular acceleration
+    Serial.print(BNOgetRollRate());
+    Serial.print(" ");
+    Serial.print(BNOgetPitchRate());
+    Serial.print(" ");
     Serial.println(BNOgetYawRate());
   }
   
