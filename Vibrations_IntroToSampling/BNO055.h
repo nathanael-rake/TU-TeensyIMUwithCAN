@@ -1,6 +1,8 @@
 #include  <i2c_t3.h>
 
 const double AccelXOffset = 0.298012168 ;
+const double AccelYOffset = 0.298012168 ;
+const double AccelZOffset = 0.298012168 ;
 
 //Bosch Sensortec BNO055 Definitions
 //The following definitions are from the BNO055 Datasheet
@@ -233,6 +235,21 @@ void BNOwrite(int reg, uint8_t val){
   Wire.endTransmission();
 }
 
+double BNOgetRollRate(){
+  byte gyroMSB = BNOread(BNO055_GYRO_DATA_X_MSB_ADDR);
+  byte gyroLSB = BNOread(BNO055_GYRO_DATA_X_LSB_ADDR);
+  int16_t tempGyro = word(gyroMSB,gyroLSB);
+  return tempGyro * gyroScaleFactor + gyroOffset; //This is from 125 deg/second range 125/2^15 and subtracting off an average
+}
+
+
+double BNOgetPitchRate(){
+  byte gyroMSB = BNOread(BNO055_GYRO_DATA_Y_MSB_ADDR);
+  byte gyroLSB = BNOread(BNO055_GYRO_DATA_Y_LSB_ADDR);
+  int16_t tempGyro = word(gyroMSB,gyroLSB);
+  return tempGyro * gyroScaleFactor + gyroOffset; //This is from 125 deg/second range 125/2^15 and subtracting off an average
+}
+
 double BNOgetYawRate(){
   byte gyroMSB = BNOread(BNO055_GYRO_DATA_Z_MSB_ADDR);
   byte gyroLSB = BNOread(BNO055_GYRO_DATA_Z_LSB_ADDR);
@@ -250,11 +267,24 @@ double BNOgetYawRate(){
 //}
 
 double BNOgetAccelX(){
+  byte accelMSB = BNOread(BNO055_ACCEL_DATA_X_MSB_ADDR ); //Change these to match the compass in the teensy troller
+  byte accelLSB = BNOread(BNO055_ACCEL_DATA_X_LSB_ADDR );
+  int16_t tempAccel= word(accelMSB,accelLSB);
+  return  double(tempAccel)/1000.0 - AccelXOffset  ; //; //in milligs Change this offset
+}
+
+double BNOgetAccelY(){
   byte accelMSB = BNOread(BNO055_ACCEL_DATA_Y_MSB_ADDR ); //Change these to match the compass in the teensy troller
   byte accelLSB = BNOread(BNO055_ACCEL_DATA_Y_LSB_ADDR );
   int16_t tempAccel= word(accelMSB,accelLSB);
-  return  double(tempAccel)/1000.0 - AccelXOffset  ; //; //in milligs Change this offset
-  
+  return  double(tempAccel)/1000.0 - AccelYOffset  ; //; //in milligs Change this offset
+}
+
+double BNOgetAccelZ(){
+  byte accelMSB = BNOread(BNO055_ACCEL_DATA_Z_MSB_ADDR ); //Change these to match the compass in the teensy troller
+  byte accelLSB = BNOread(BNO055_ACCEL_DATA_Z_LSB_ADDR );
+  int16_t tempAccel= word(accelMSB,accelLSB);
+  return  double(tempAccel)/1000.0 - AccelZOffset  ; //; //in milligs Change this offset
 }
 
 uint8_t getBNOSystemStatus(){
