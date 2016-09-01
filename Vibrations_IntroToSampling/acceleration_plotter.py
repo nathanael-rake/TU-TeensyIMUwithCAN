@@ -9,7 +9,7 @@ import serial
 import matplotlib.pyplot as plt
 
 plotUpdate = 20*4 #number of timesteps between plot updates
-port = 'COM3'
+port = 'COM4'
 baud = 115200
 
 #open serial port
