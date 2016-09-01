@@ -104,24 +104,22 @@ void loop(void)
     // - VECTOR_GRAVITY       - m/s^2
     imu::Vector<3> acceleration = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
   
-    /* Display the floating point data */
-    Serial.print("X: ");
+    /* Display the floating linear acceleration data */
     Serial.print(acceleration.x());
-    Serial.print(" Y: ");
+    Serial.print("\t");
     Serial.print(acceleration.y());
-    Serial.print(" Z: ");
+    Serial.print("\t");
     Serial.print(acceleration.z());
-    Serial.print("\t\t");
+    Serial.print("\t");
     
     imu::Vector<3> angularVelocity = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-      /* Display the floating point data */
-    Serial.print("X: ");
+      /* Display the floating point angular acceleration data */
     Serial.print(angularVelocity.x());
-    Serial.print(" Y: ");
+    Serial.print("\t");
     Serial.print(angularVelocity.y());
-    Serial.print(" Z: ");
+    Serial.print("\t");
     Serial.print(angularVelocity.z());
-    Serial.print("\t\t");
+    Serial.print("\n");
   
     /*
     // Quaternion data
