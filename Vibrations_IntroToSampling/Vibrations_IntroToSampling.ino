@@ -119,7 +119,7 @@ void loop(void)
     Serial.print(angularVelocity.y());
     Serial.print("\t");
     Serial.print(angularVelocity.z());
-    Serial.print("\n");
+    Serial.print("\t");
   
     /*
     // Quaternion data
