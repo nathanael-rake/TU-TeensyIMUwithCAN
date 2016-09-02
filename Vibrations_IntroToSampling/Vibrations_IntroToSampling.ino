@@ -138,14 +138,14 @@ void loop(void)
     /* Display calibration status for each sensor. */
     uint8_t system, gyro, accel, mag = 0;
     bno.getCalibration(&system, &gyro, &accel, &mag);
-    Serial.print("CALIBRATION: Sys=");
     Serial.print(system, DEC);
-    Serial.print(" Gyro=");
+    Serial.print("\t");
     Serial.print(gyro, DEC);
-    Serial.print(" Accel=");
+    Serial.print("\t");
     Serial.print(accel, DEC);
-    Serial.print(" Mag=");
+    Serial.print("\t");
     Serial.println(mag, DEC);
+    Serial.print("\n");
 
   }
 }
