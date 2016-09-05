@@ -41,7 +41,7 @@ Adafruit_BNO055 bno = Adafruit_BNO055();
 /**************************************************************************/
 void setup(void)
 {
-   pinMode(ledPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
  
   pinMode(PS0Pin,OUTPUT);
   digitalWrite(PS0Pin,LOW);
@@ -94,6 +94,10 @@ void loop(void)
     ledTimer = 0;
     ledState = !ledState;
     digitalWrite(ledPin,ledState);
+
+    //Write the time to the serial data
+    Serial.print(millis()/1000.0);
+    Serial.print("\t");
 
     // Possible vector values can be:
     // - VECTOR_ACCELEROMETER - m/s^2
