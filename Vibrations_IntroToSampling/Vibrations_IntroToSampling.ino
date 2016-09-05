@@ -61,7 +61,7 @@ void setup(void)
   Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
 
   /* Initialise the sensor */
-  if(!bno.begin(bno.OPERATION_MODE_ACCGYRO))
+  if(!bno.begin(bno.OPERATION_MODE_ACCGYRO))  //Accelerometer and Gyro only mode
   {
     /* There was a problem detecting the BNO055 ... check your connections */
     Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
@@ -69,6 +69,21 @@ void setup(void)
   }
 
   delay(1000);
+
+  //Increase the limit on the Accelerometer to 16G
+  Serial.println(bno.OPERATION_MODE_ACCGYRO);  //print the current operation mode (for debug)
+  
+  bno.write8(bno.BNO055_PAGE_ID_ADDR, 1); //Change to memory page 1
+  Serial.println(bno.read8(bno.BNO055_PAGE_ID_ADDR)); //print the current memory page (for debug)
+  
+  bno.write8(bno.BNO055_ACCEL_DATA_X_LSB_ADDR, 0x1F); //Change the accel_config register (same as accel_data on page0)
+    //to have a 16G limit
+  Serial.println(bno.read8(bno.BNO055_ACCEL_DATA_X_LSB_ADDR));  //print the code for the current accel limit (for debug)
+
+  Serial.println(bno.read8(bno.BNO055_PAGE_ID_ADDR)); //print the current memory page (for debug)
+  
+  bno.write8(bno.BNO055_PAGE_ID_ADDR, 0); //change back to memory page 0
+  delay(1000*5);
 
   /* Display the current temperature */
   int8_t temp = bno.getTemp();
