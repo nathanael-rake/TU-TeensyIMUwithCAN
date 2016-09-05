@@ -61,7 +61,7 @@ void setup(void)
   Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
 
   /* Initialise the sensor */
-  if(!bno.begin())
+  if(!bno.begin(OPERATION_MODE_ACCGYRO))
   {
     /* There was a problem detecting the BNO055 ... check your connections */
     Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
